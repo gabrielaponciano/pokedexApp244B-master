@@ -1,0 +1,59 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="dark">
+    <ion-title>
+      Pokemons
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-searchbar placeholder="Buscar Pokemons" color="medium"></ion-searchbar>
+ 
+  <ion-item *ngFor="let pokemon of listaPokemonExibir" [routerLink]="'/exibir-pokemon/' + pokemon.id">
+
+    <ion-chip slot="start">
+    <ion-label color="dark">
+      {{ pokemon.id }}
+    </ion-label>
+    </ion-chip>
+
+    <ion-label>
+      <div> 
+        <h2>{{ pokemon.name }}</h2>
+        <ion-badge [color]="pokemon.type.name | lowercase" *ngFor="let pokemon of pokemon.types">
+        {{pokemon.type.name}}
+      </ion-badge>
+    </div>
+    </ion-label>
+ 
+    <ion-thumbnail slot="end">
+      <img [src]="pokemon.sprites.front_default" alt="Foto">
+    </ion-thumbnail>
+    
+  </ion-item>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="dark" class="ion-text-center">
+
+    <ion-buttons slot="start" *ngIf="pagina > 1">
+
+      <ion-button (click)="buscarPokemons(pagina - 1)">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+
+    Página: {{pagina}}
+
+    <ion-buttons slot="end" *ngIf="pagina < totalPaginas">
+      
+      <ion-button (click)="buscarPokemons(pagina + 1)">
+        <ion-icon slot="icon-only" name="chevron-forward-outline"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-footer>
